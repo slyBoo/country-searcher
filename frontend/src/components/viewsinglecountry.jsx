@@ -13,6 +13,7 @@ function SingleCountry() {
         // our code goes here
         fetch(`http://127.0.0.1:8000/countries/${id}/`)
             .then(response => {
+                console.log(response)
                 if (response.status === 404) {
                     navigate('/notfound', { replace: true });
                     return null;
@@ -23,7 +24,11 @@ function SingleCountry() {
             .then(data => {
                 console.log(data[0])
                 setCountry(data[0]) // get the array of text out and set it as our state
-                setIsLoaded(true)
+                if (data[0] != null) {
+                    setIsLoaded(true)
+                } else {
+                    navigate('/notfound', { replace: true })
+                }
             })
             .catch(err => console.log(err))
     }
